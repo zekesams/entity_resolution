@@ -1,7 +1,9 @@
+from typing import Generator
+
 import fasttext
 import pandas as pd
 
-from dtsc330_26.readers import articles, grants
+from entity_resolution.readers import articles_reader, grants_reader
 
 
 class MergedData:
@@ -11,18 +13,17 @@ class MergedData:
         article_path: str = "data/pubmed25n1275.xml.gz",
         ft_path: str = "data/cc.en.50.bin",
     ):
+
         self.ft_model = fasttext.load_model(ft_path)
-        art = articles.Articles(article_path)
+        art = articles_reader.ArticlesReader(article_path)
         self.auth_df = art.get_authors().iloc[0:100]
 
-        grant = grants.Grants(grant_path)
+        grant = grants_reader.GrantsReader(grant_path)
         self.grant_df = grant.get_grantees().iloc[0:100]
 
-    def get_merged_data(self) -> pd.DataFrame:
-        # TEMPORARILY
-        # Before we cluster possible matches together
-        # I'm going to limit to only 100 entries from each dataframe
-
+    def get_merged_data(self) -> Generator[pd.DataFrame]:
+        """Before clustering possible matches together, limit to only 100 entries from each dataframe"""
+        
         self.auth_df["ft_forename_vec"] = self.auth_df["forename"].apply(
             self.ft_model.get_sentence_vector
         )
@@ -48,4 +49,6 @@ class MergedData:
 
 
 if __name__ == "__main__":
-    x = get_merged_data()
+    merged_data = MergedData()
+    for df in md.get_merged_data():
+        print(df)

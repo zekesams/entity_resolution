@@ -27,8 +27,11 @@ def set_dist(x: str, y: str) -> float:
 
 class EntityResolutionFeatures:
     def features(self, comb_df: pd.DataFrame) -> pd.DataFrame:
+        """ Get features from data
+
+        Args: comb_df: combined dataframe (authors and grantees)
+        """
         # For each character slot, is it the same character?
-        # Fails for deletions and insertions
         comb_df["jw_fn_dist"] = comb_df.apply(
             lambda row: jarowinkler.jaro_similarity(
                 row["forename_x"], row["forename_y"]
