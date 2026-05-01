@@ -1,3 +1,7 @@
+"""
+Create tables for sqlite database
+"""
+
 CREATE TABLE IF NOT EXISTS grants (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   application_id VARCHAR(20) NOT NULL,
