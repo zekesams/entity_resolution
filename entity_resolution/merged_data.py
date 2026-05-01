@@ -42,7 +42,6 @@ class MergedData:
                 comb_df = self.auth_df.iloc[i : i + 100].merge(
                     self.grant_df.iloc[i : i + 100], how="cross"
                 )
-                # What the heck is yield?
                 # Return halfway through
                 # Take a pause, return part, then keep going
                 yield comb_df

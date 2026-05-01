@@ -23,8 +23,8 @@ class GrantsReader:
         df = pd.read_csv(path, compression="zip")
 
         mapper = {
-            "APPLICATION_ID": "application_id",  # _id means an id
-            "BUDGET_START": "start_at",  #  _at means a date
+            "APPLICATION_ID": "application_id",
+            "BUDGET_START": "start_at",
             "ACTIVITY": "grant_type",
             "TOTAL_COST": "total_cost",
             "PI_NAMEs": "pi_names",

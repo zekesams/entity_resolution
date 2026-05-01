@@ -10,7 +10,7 @@ er_features = er_features.EntityResolutionFeatures()
 classifier = er_classifier.EntityResolutionClassifier()
 nnidx = grantee_nearest_neighbor_index.GranteeNNIndex()
 
-# Train our classifier
+# Train classifier
 # Load the training data
 df = (
     pd.read_csv("data/temp-auth-grantee-training-10.csv")[
